@@ -8,14 +8,24 @@ const specialChar = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "=",
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
+// Write password to the #password input
+function writePassword() {
+    var password = generatePassword();
+    var passwordText = document.querySelector("#password");
+  
+    passwordText.value = password;
+  }
+// Add event listener to generate password button
+generateBtn.addEventListener("click", writePassword);
+
 //sets up function/array to collect speficiations for password
 function generatePassword() { 
-    var passwordLength;
     var passwordArray = [];
-    var passwordlength = parseInt(prompt("Enter desired length of password (Between 8-128 characters)"));
+    var passwordLength = Number(prompt("Enter desired length of password (Between 8-128 characters)"));
     if (passwordLength < 8 || passwordLength > 128) {
-        passwordLength = prompt("Please enter a password length between 8-128")
+        passwordLength = prompt("ERROR: Please enter a password length between 8-128");
     };
+
 //specifications for password
     var addNums = confirm("Would you like to add numbers?");
     var addUppercase = confirm("Would you like to include uppercase leters?");
@@ -25,6 +35,7 @@ function generatePassword() {
     if (!addNums && !addLowercase && !addUppercase && !addSpecials) {
         alert("ERROR: You must select one of the options")
     };
+
 //adds specified arrays into main array(generated password)
     if (addNums) {
         passwordArray = passwordArray.concat(numbers)};
@@ -44,13 +55,3 @@ function generatePassword() {
     }
     return password.join("");
 }
-// Write password to the #password input
-function writePassword() {
-    var password = generatePassword();
-    var passwordText = document.querySelector("#password");
-  
-    passwordText.value = password;
-  }
-
-// Add event listener to generate password button
-generateBtn.addEventListener("click", writePassword);
